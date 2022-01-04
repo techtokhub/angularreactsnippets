@@ -1,0 +1,36 @@
+{
+    "Dockerfile for Angular": {
+      "prefix": "a-docker-nginx",
+      "body": [
+        "# Angular App",
+        "FROM node:latest as build",
+        "WORKDIR /usr/src/app",
+        "COPY [\"package.json\", \"./\"]",
+        "RUN npm install --silent",
+        "COPY . .",
+        "RUN npm run build --prod",
+        "",
+        "# Serve app with nginx server",
+        "FROM nginx:latest",
+        "COPY --from=build /usr/local/app/dist/sample-angular-app /usr/share/nginx/html",
+        "EXPOSE ${5:80}",
+        "$0"
+      ],
+      "description": "Multi-stage Angular Dockerfile with NgInx Server"
+    },
+    "Dockerfile for React": {
+        "prefix": "a-docker",
+        "body": [
+        "# Angular App",
+        "FROM node:latest as build",
+        "WORKDIR /usr/src/app",
+        "COPY [\"package.json\", \"./\"]",
+        "RUN npm install --silent",
+        "COPY . .",
+        "RUN npm run build --prod",
+        "EXPOSE ${5:80}",
+        "$0"
+        ],
+        "description": "Multi-stage Angular Dockerfile with NgInx Server"
+      }
+  }
